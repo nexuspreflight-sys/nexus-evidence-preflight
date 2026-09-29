@@ -1,0 +1,18 @@
+{
+  "request_id": "123e4567-e89b-42d3-a456-426614174000",
+  "public_non_sensitive_confirmed": true,
+  "source": {
+    "document_id": "public-demo-document-1",
+    "provenance": "public_source"
+  },
+  "pages": [
+    {"page": 1, "text": "Unit price: $100. Total price: $500. Quantity 5. Phase 1 Total Project Amount: $6,113,575."}
+  ],
+  "claims": [
+    {"claim_id": "c1", "field": "unit_price_right", "semantic_field": "unit_price", "page": 1, "evidence": "Unit price: $100", "value": "$100"},
+    {"claim_id": "c2", "field": "total_price_right", "semantic_field": "total_price", "page": 1, "evidence": "Total price: $500", "value": "$500"},
+    {"claim_id": "c3", "field": "false_field_association", "semantic_field": "total_price", "page": 1, "evidence": "Unit price: $100", "value": "$100"},
+    {"claim_id": "c4", "field": "fake_numeric_value", "semantic_field": "total_price", "page": 1, "evidence": "Total price: $500", "value": "$900"},
+    {"claim_id": "c5", "field": "phase_number_as_money", "semantic_field": "phase_total", "page": 1, "evidence": "Phase 1 Total Project Amount: $6,113,575", "value": "1"}
+  ]
+}

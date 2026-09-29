@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "apify-discovery": {
+      "url": "https://mcp.apify.com?tools=search-actors,fetch-actor-details"
+    }
+  }
+}
