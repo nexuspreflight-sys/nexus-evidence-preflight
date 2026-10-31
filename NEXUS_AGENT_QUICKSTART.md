@@ -16,7 +16,32 @@ The following server URL enables only Apify Store search and Actor-detail lookup
 }
 ```
 
-Search by task rather than assuming a result, then inspect the returned Actor details and schema. Example generic searches: `check extracted values against quoted text` or `document claim evidence consistency`. Discovery does not guarantee that NEXUS will appear, be suitable, or be eligible for autonomous payments.
+When the user explicitly requests NEXUS, use `fetch-actor-details` with the verified public identifier instead of relying on search ranking:
+
+```json
+{
+  "actor": "vad_tot_i86/nexus-v06-private-cloud-test",
+  "output": {
+    "description": true,
+    "pricing": true,
+    "metadata": true,
+    "inputSchema": true
+  }
+}
+```
+
+The stable Actor ID is `y8Ca9fCObq92TKZuz`. Inspect the returned identity, current pricing and schema before any separately authorized run. Detail lookup does not execute the Actor.
+
+For open-ended tool discovery, use `search-actors` and evaluate the returned candidates. Do not assume that NEXUS appears in the results. On 2026-10-31, unauthenticated tests against the hosted Apify MCP server (version 0.20.0) did not return NEXUS among the first ten results for `NEXUS Evidence Preflight` or `claim quote checker`; direct `fetch-actor-details` succeeded. These are point-in-time observations, not a guaranteed ranking or a diagnosed search defect.
+
+### Compatibility with the October 2026 Apify changes
+
+- This repository uses ordinary Actor execution through the Apify API client. It does not use the removed `call-actor` `actor:tool` syntax or `output.mcpTools`. Do not replace its normal Actor calls with `call-actor-mcp-tool`, which is for tools hosted by MCP-server Actors.
+- Apify announced Store API search changes on October 30, effective November 15, 2026. Code that searches `GET /v2/store` must not rely on paging search results, `sortBy`, or `total` meaning all matches. Search returns one page of at most 100 items. The MCP `search-actors` tool has its own smaller limit; use its advertised schema.
+- This repository currently has no Store-search pagination code to migrate. When NEXUS is already the intended Actor, direct detail lookup avoids dependence on search ranking.
+- Public Store metadata and MCP details reported `PAY_PER_EVENT` on October 31, 2026. Store metadata also reported `isWhiteListedForAgenticPayments: true`; no autonomous payment or paid run was tested. Recheck current eligibility before relying on it.
+
+Official references: [MCP 0.20.0 release](https://github.com/apify/apify-mcp-server/releases/tag/v0.20.0), [Store API migration announcement](https://apify.com/change-log/apify-store-api), and [NEXUS Store listing](https://apify.com/vad_tot_i86/nexus-v06-private-cloud-test).
 
 ## Integration sequence
 
